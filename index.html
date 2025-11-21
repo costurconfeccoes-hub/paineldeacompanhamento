@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Acompanhamento - Costur Confecções</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #3498db;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --text: #333;
+            --shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+        }
+
+        body {
+            background-color: #f9f9f9;
+            color: var(--text);
+            line-height: 1.2;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 10px 0;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+        }
+
+        .logo {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background-color: var(--light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 2px solid var(--secondary);
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .logo-text h1 {
+            font-size: 1.1rem;
+            margin-bottom: 1px;
+            color: white;
+        }
+
+        .logo-text p {
+            font-style: italic;
+            opacity: 0.9;
+            font-size: 0.7rem;
+            color: white;
+        }
+
+        .header-contact {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 2px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #FFF;
+            font-size: 0.7rem;
+        }
+
+        .contact-item i {
+            color: #FFF;
+            font-size: 0.6rem;
+        }
+
+        /* Sections */
+        section {
+            padding: 20px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 2px;
+            background-color: var(--secondary);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* Painel de Acompanhamento */
+        .dashboard {
+            background-color: var(--light);
+        }
+
+        .dashboard-container {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 15px;
+        }
+
+        /* Filtro */
+        .filter-container {
+            background-color: white;
+            padding: 12px;
+            border-radius: 6px;
+            box-shadow: var(--shadow);
+            margin-bottom: 15px;
+        }
+
+        .filter-container h4 {
+            margin-bottom: 8px;
+            color: var(--primary);
+            font-size: 0.9rem;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .filter-select {
+            flex: 1;
+            padding: 6px 8px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            font-size: 0.75rem;
+            background-color: white;
+        }
+
+        .filter-btn {
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            padding: 6px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 0.7rem;
+            transition: background-color 0.3s;
+        }
+
+        .filter-btn:hover {
+            background-color: #2980b9;
+        }
+
+        /* Formulário */
+        .form-container {
+            background-color: white;
+            padding: 15px;
+            border-radius: 6px;
+            box-shadow: var(--shadow);
+            height: fit-content;
+        }
+
+        .form-container h3 {
+            margin-bottom: 12px;
+            color: var(--primary);
+            border-bottom: 1px solid var(--secondary);
+            padding-bottom: 6px;
+            font-size: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 10px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 4px;
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 0.75rem;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 6px 8px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            font-size: 0.75rem;
+            transition: border 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: var(--secondary);
+            outline: none;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 6px;
+            margin-top: 12px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 3px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            flex: 1;
+            text-align: center;
+            font-size: 0.7rem;
+        }
+
+        .btn:hover {
+            background-color: #2980b9;
+        }
+
+        .btn-danger {
+            background-color: var(--danger);
+        }
+
+        .btn-danger:hover {
+            background-color: #c0392b;
+        }
+
+        /* Visualização Rápida - SUPER COMPACTA E COLADA */
+        .quick-view-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0; /* SEM ESPAÇO ENTRE OS ITENS */
+        }
+
+        .quick-view-item {
+            background-color: white;
+            padding: 8px 10px;
+            border-bottom: 1px solid #eee; /* Linha divisória sutil */
+            transition: all 0.2s ease;
+            min-height: 60px; /* Altura bem reduzida */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .quick-view-item:hover {
+            background-color: #f8f9fa;
+        }
+
+        .quick-view-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4px;
+        }
+
+        .quick-view-cliente {
+            font-weight: bold;
+            color: var(--primary);
+            font-size: 0.8rem;
+        }
+
+        .quick-view-status {
+            padding: 2px 6px;
+            border-radius: 8px;
+            font-size: 0.6rem;
+            font-weight: bold;
+            color: white;
+            white-space: nowrap;
+        }
+
+        .status-aguardando {
+            background-color: var(--warning);
+        }
+
+        .status-producao {
+            background-color: var(--secondary);
+        }
+
+        .status-realizado {
+            background-color: var(--success);
+        }
+
+        .status-parado {
+            background-color: var(--danger);
+        }
+
+        .quick-view-details-compact {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 4px;
+            font-size: 0.65rem;
+        }
+
+        .detail-compact {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .detail-label-compact {
+            font-size: 0.6rem;
+            color: #666;
+            margin-bottom: 1px;
+        }
+
+        .detail-value-compact {
+            font-weight: 500;
+            font-size: 0.65rem;
+        }
+
+        .quick-view-actions {
+            display: flex;
+            gap: 4px;
+            justify-content: flex-end;
+            margin-top: 4px;
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 0.65rem;
+            padding: 2px 5px;
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+
+        .edit-btn {
+            color: var(--secondary);
+            border: 1px solid var(--secondary);
+        }
+
+        .edit-btn:hover {
+            background-color: rgba(52, 152, 219, 0.1);
+        }
+
+        .delete-btn {
+            color: var(--danger);
+            border: 1px solid var(--danger);
+        }
+
+        .delete-btn:hover {
+            background-color: rgba(231, 76, 60, 0.1);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+        }
+
+        .modal-content {
+            position: relative;
+            width: 90%;
+            max-width: 350px;
+            margin: 10% auto;
+            background: white;
+            border-radius: 6px;
+            overflow: hidden;
+            padding: 15px;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: red;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            font-size: 14px;
+            cursor: pointer;
+            z-index: 2001;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-title {
+            margin-bottom: 12px;
+            color: var(--primary);
+            border-bottom: 1px solid var(--secondary);
+            padding-bottom: 6px;
+            font-size: 0.9rem;
+        }
+
+        /* Loading */
+        .loading {
+            text-align: center;
+            padding: 10px;
+            color: var(--primary);
+            font-size: 0.8rem;
+        }
+
+        .loading i {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 8px;
+            }
+
+            .header-contact {
+                align-items: center;
+            }
+
+            .dashboard-container {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .filter-group {
+                flex-direction: column;
+            }
+
+            .quick-view-details-compact {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .logo-text h1 {
+                font-size: 1rem;
+            }
+
+            .section-title h2 {
+                font-size: 1.2rem;
+            }
+
+            .form-actions {
+                flex-direction: column;
+            }
+
+            .quick-view-details-compact {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div class="logo-container">
+                <div class="logo">
+                    <img src="https://i.pinimg.com/1200x/40/a8/e9/40a8e9533769e963fd52ccc646efc7c6.jpg" alt="Costur Confecções" id="logo-image">
+                </div>
+                <div class="logo-text">
+                    <h1>Costur Confecções</h1>
+                    <p>Sua marca, nossa costura.</p>
+                </div>
+            </div>
+            <div class="header-contact">
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <span>(81) 9.2140-5569 / (81) 9.9201-4171</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Rua professor ferrucio, 436, São Francisco - Caruaru/PE</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Painel de Acompanhamento -->
+    <section id="dashboard" class="dashboard">
+        <div class="container">
+            <div class="section-title">
+                <h2>Painel de Acompanhamento</h2>
+            </div>
+            
+            <div class="dashboard-container">
+                <!-- Formulário -->
+                <div class="form-container">
+                    <h3>Novo Acompanhamento</h3>
+                    <form id="acompanhamentoForm">
+                        <div class="form-group">
+                            <label for="cliente">Cliente (Marca)</label>
+                            <select id="cliente" required>
+                                <option value="">Carregando marcas...</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="dataAtualizacao">Data de Atualização</label>
+                            <input type="text" id="dataAtualizacao" readonly>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="etapa">Etapa</label>
+                            <input type="text" id="etapa" placeholder="Ex: Corte, Costura, Acabamento">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="modelo">Modelo</label>
+                            <input type="text" id="modelo" placeholder="Ex: Camiseta básica, Vestido longo">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="status">Status</label>
+                            <select id="status">
+                                <option value="Aguardando">Aguardando</option>
+                                <option value="Em produção">Em produção</option>
+                                <option value="Realizado">Realizado</option>
+                                <option value="Parado por falta de material">Parado por falta de material</option>
+                                <option value="Parado por falta de eletricidade">Parado por falta de eletricidade</option>
+                                <option value="Parado manutenção de máquina">Parado manutenção de máquina</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="numeroPasso">Número do Passo</label>
+                            <input type="number" id="numeroPasso" placeholder="Ex: 1, 2, 3...">
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="submit" class="btn" id="saveBtn">Salvar</button>
+                            <button type="button" class="btn btn-danger" id="deleteBtn" style="display: none;">Excluir</button>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Visualização Rápida SUPER COMPACTA E COLADA -->
+                <div>
+                    <!-- Filtro por Cliente -->
+                    <div class="filter-container">
+                        <h4>Filtrar por Cliente</h4>
+                        <div class="filter-group">
+                            <select id="filtroCliente" class="filter-select">
+                                <option value="">Todos os clientes</option>
+                            </select>
+                            <button class="filter-btn" onclick="aplicarFiltro()">
+                                <i class="fas fa-filter"></i> Filtrar
+                            </button>
+                            <button class="filter-btn" onclick="limparFiltro()" style="background-color: #95a5a6;">
+                                <i class="fas fa-times"></i> Limpar
+                            </button>
+                        </div>
+                    </div>
+
+                    <h3 style="margin-bottom: 12px; color: var(--primary); font-size: 1rem;">Acompanhamentos</h3>
+                    <div class="quick-view-container" id="quickViewContainer">
+                        <div class="loading">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <p>Carregando acompanhamentos...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal para exclusão -->
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeDeleteModal()">×</button>
+            <h3 class="modal-title">Confirmar Exclusão</h3>
+            <div class="form-group">
+                <label for="senhaExclusao">Digite a senha para excluir:</label>
+                <input type="password" id="senhaExclusao" placeholder="Senha de administrador">
+            </div>
+            <div class="form-actions">
+                <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Confirmar Exclusão</button>
+                <button type="button" class="btn" onclick="closeDeleteModal()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        // Import the functions you need from the Firebase SDKs
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+        import { getFirestore, collection, addDoc, getDocs, updateDoc, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+
+        // Configuração do Firebase para CLIENTES
+        const firebaseConfigClientes = {
+            apiKey: "AIzaSyCyTwlzsMG5-l07vnrb8XIx9J6AIP_Xuvw",
+            authDomain: "cadastro-cliente-6bd66.firebaseapp.com",
+            projectId: "cadastro-cliente-6bd66",
+            storageBucket: "cadastro-cliente-6bd66.firebasestorage.app",
+            messagingSenderId: "492238035100",
+            appId: "1:492238035100:web:cfb93092a71798dd2e7559"
+        };
+
+        // Configuração do Firebase para ACOMPANHAMENTOS
+        const firebaseConfigAcompanhamentos = {
+            apiKey: "AIzaSyDRpSahfuooSK37x4pC9Q9fKUZrVLg7szk",
+            authDomain: "painel-de-acompanhamento-9b51a.firebaseapp.com",
+            projectId: "painel-de-acompanhamento-9b51a",
+            storageBucket: "painel-de-acompanhamento-9b51a.firebasestorage.app",
+            messagingSenderId: "441234048828",
+            appId: "1:441234048828:web:ca4fe2163aa4b469560039"
+        };
+
+        // Initialize Firebase apps
+        const appClientes = initializeApp(firebaseConfigClientes, "clientes");
+        const appAcompanhamentos = initializeApp(firebaseConfigAcompanhamentos, "acompanhamentos");
+        
+        const dbClientes = getFirestore(appClientes);
+        const dbAcompanhamentos = getFirestore(appAcompanhamentos);
+
+        // Referências DOM
+        const acompanhamentoForm = document.getElementById('acompanhamentoForm');
+        const clienteSelect = document.getElementById('cliente');
+        const dataAtualizacaoInput = document.getElementById('dataAtualizacao');
+        const etapaInput = document.getElementById('etapa');
+        const modeloInput = document.getElementById('modelo');
+        const statusSelect = document.getElementById('status');
+        const numeroPassoInput = document.getElementById('numeroPasso');
+        const saveBtn = document.getElementById('saveBtn');
+        const deleteBtn = document.getElementById('deleteBtn');
+        const quickViewContainer = document.getElementById('quickViewContainer');
+        const filtroClienteSelect = document.getElementById('filtroCliente');
+        const deleteModal = document.getElementById('deleteModal');
+        const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+        const senhaExclusaoInput = document.getElementById('senhaExclusao');
+
+        // Variáveis globais
+        let editId = null;
+        let clientesAtivos = [];
+        let todosAcompanhamentos = [];
+        let filtroAtual = '';
+
+        // Atualizar data automaticamente
+        function atualizarData() {
+            const now = new Date();
+            const dataFormatada = now.toLocaleDateString('pt-BR') + ' ' + now.toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit'});
+            dataAtualizacaoInput.value = dataFormatada;
+        }
+
+        // Carregar clientes ativos do Firebase
+        async function carregarClientes() {
+            try {
+                console.log("Carregando clientes ativos...");
+                
+                const querySnapshot = await getDocs(collection(dbClientes, "clientes"));
+                clientesAtivos = [];
+                
+                querySnapshot.forEach((doc) => {
+                    const cliente = doc.data();
+                    
+                    if (cliente.statusCadastro === "Ativo" && cliente.marca) {
+                        clientesAtivos.push({
+                            id: doc.id,
+                            marca: cliente.marca,
+                            nome: cliente.nome || "Cliente sem nome"
+                        });
+                    }
+                });
+
+                console.log("Clientes ativos filtrados:", clientesAtivos);
+
+                // Limpar e preencher select do formulário
+                clienteSelect.innerHTML = '<option value="">Selecione uma marca</option>';
+                
+                // Limpar e preencher select do filtro
+                filtroClienteSelect.innerHTML = '<option value="">Todos os clientes</option>';
+                
+                if (clientesAtivos.length === 0) {
+                    clienteSelect.innerHTML = '<option value="">Nenhuma marca ativa encontrada</option>';
+                    filtroClienteSelect.innerHTML = '<option value="">Nenhuma marca ativa</option>';
+                    return;
+                }
+                
+                clientesAtivos.sort((a, b) => a.marca.localeCompare(b.marca));
+                
+                clientesAtivos.forEach(cliente => {
+                    // Preencher select do formulário
+                    const option = document.createElement('option');
+                    option.value = cliente.id;
+                    option.textContent = cliente.marca;
+                    clienteSelect.appendChild(option);
+
+                    // Preencher select do filtro
+                    const optionFiltro = document.createElement('option');
+                    optionFiltro.value = cliente.marca;
+                    optionFiltro.textContent = cliente.marca;
+                    filtroClienteSelect.appendChild(optionFiltro);
+                });
+
+            } catch (error) {
+                console.error("Erro ao carregar clientes:", error);
+                clienteSelect.innerHTML = '<option value="">Erro ao carregar marcas</option>';
+                filtroClienteSelect.innerHTML = '<option value="">Erro ao carregar marcas</option>';
+            }
+        }
+
+        // Carregar acompanhamentos do Firebase
+        async function carregarAcompanhamentos() {
+            try {
+                console.log("Carregando acompanhamentos...");
+                
+                const querySnapshot = await getDocs(collection(dbAcompanhamentos, "acompanhamentos"));
+                todosAcompanhamentos = [];
+                
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    todosAcompanhamentos.push({
+                        id: doc.id,
+                        ...data
+                    });
+                });
+
+                console.log("Todos os acompanhamentos carregados:", todosAcompanhamentos);
+                aplicarFiltro(); // Aplicar filtro após carregar
+
+            } catch (error) {
+                console.error("Erro ao carregar acompanhamentos:", error);
+                quickViewContainer.innerHTML = '<div class="loading"><p>Erro ao carregar acompanhamentos</p></div>';
+            }
+        }
+
+        // Aplicar filtro por cliente
+        window.aplicarFiltro = function() {
+            const marcaSelecionada = filtroClienteSelect.value;
+            filtroAtual = marcaSelecionada;
+            
+            let acompanhamentosFiltrados = [...todosAcompanhamentos];
+            
+            if (marcaSelecionada) {
+                acompanhamentosFiltrados = todosAcompanhamentos.filter(acomp => 
+                    acomp.clienteMarca === marcaSelecionada
+                );
+            }
+            
+            exibirAcompanhamentos(acompanhamentosFiltrados);
+        }
+
+        // Limpar filtro
+        window.limparFiltro = function() {
+            filtroClienteSelect.value = '';
+            filtroAtual = '';
+            exibirAcompanhamentos(todosAcompanhamentos);
+        }
+
+        // Exibir acompanhamentos na tela
+        function exibirAcompanhamentos(acompanhamentos) {
+            quickViewContainer.innerHTML = '';
+
+            if (acompanhamentos.length === 0) {
+                const mensagem = filtroAtual 
+                    ? `Nenhum acompanhamento encontrado para ${filtroAtual}`
+                    : 'Nenhum acompanhamento encontrado';
+                
+                quickViewContainer.innerHTML = `<div class="loading"><p>${mensagem}</p></div>`;
+                return;
+            }
+
+            // ORDENAR POR numeroPasso (sequência numérica)
+            acompanhamentos.sort((a, b) => {
+                const passoA = a.numeroPasso || 0;
+                const passoB = b.numeroPasso || 0;
+                return passoA - passoB;
+            });
+
+            // Preencher visualização rápida SUPER COMPACTA
+            acompanhamentos.forEach(acompanhamento => {
+                const quickItem = document.createElement('div');
+                quickItem.className = 'quick-view-item';
+                quickItem.innerHTML = `
+                    <div class="quick-view-header">
+                        <div class="quick-view-cliente">${acompanhamento.clienteMarca || acompanhamento.clienteId || 'Marca não informada'}</div>
+                        <div class="quick-view-status status-${getStatusClass(acompanhamento.status)}">${acompanhamento.status || 'Sem status'}</div>
+                    </div>
+                    <div class="quick-view-details-compact">
+                        <div class="detail-compact">
+                            <span class="detail-label-compact">Etapa</span>
+                            <span class="detail-value-compact">${acompanhamento.etapa || '-'}</span>
+                        </div>
+                        <div class="detail-compact">
+                            <span class="detail-label-compact">Modelo</span>
+                            <span class="detail-value-compact">${acompanhamento.modelo || '-'}</span>
+                        </div>
+                        <div class="detail-compact">
+                            <span class="detail-label-compact">Passo</span>
+                            <span class="detail-value-compact">${acompanhamento.numeroPasso || '0'}</span>
+                        </div>
+                        <div class="detail-compact">
+                            <span class="detail-label-compact">Atualização</span>
+                            <span class="detail-value-compact">${formatarDataCompacta(acompanhamento.dataAtualizacao) || '-'}</span>
+                        </div>
+                    </div>
+                    <div class="quick-view-actions">
+                        <button class="action-btn edit-btn" onclick="editarAcompanhamento('${acompanhamento.id}')">
+                            <i class="fas fa-edit"></i> Editar
+                        </button>
+                        <button class="action-btn delete-btn" onclick="abrirModalExclusao('${acompanhamento.id}')">
+                            <i class="fas fa-trash"></i> Excluir
+                        </button>
+                    </div>
+                `;
+                quickViewContainer.appendChild(quickItem);
+            });
+        }
+
+        // Formatar data de forma compacta
+        function formatarDataCompacta(dataString) {
+            if (!dataString) return '';
+            return dataString.split(' ')[0];
+        }
+
+        // Função auxiliar para obter classe CSS do status
+        function getStatusClass(status) {
+            if (!status) return "aguardando";
+            if (status === "Aguardando") return "aguardando";
+            if (status === "Em produção") return "producao";
+            if (status === "Realizado") return "realizado";
+            return "parado";
+        }
+
+        // Salvar ou atualizar acompanhamento
+        acompanhamentoForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const clienteSelecionado = clientesAtivos.find(c => c.id === clienteSelect.value);
+            if (!clienteSelecionado) {
+                alert("Selecione uma marca válida");
+                return;
+            }
+            
+            const acompanhamento = {
+                clienteId: clienteSelect.value,
+                clienteMarca: clienteSelecionado.marca,
+                dataAtualizacao: dataAtualizacaoInput.value,
+                etapa: etapaInput.value,
+                modelo: modeloInput.value,
+                status: statusSelect.value,
+                numeroPasso: parseInt(numeroPassoInput.value) || 0
+            };
+
+            if (!editId) {
+                acompanhamento.dataCriacao = new Date().toLocaleDateString('pt-BR');
+            }
+
+            try {
+                if (editId) {
+                    const docRef = doc(dbAcompanhamentos, "acompanhamentos", editId);
+                    await updateDoc(docRef, acompanhamento);
+                    console.log("Acompanhamento atualizado:", acompanhamento);
+                } else {
+                    await addDoc(collection(dbAcompanhamentos, "acompanhamentos"), acompanhamento);
+                    console.log("Acompanhamento salvo:", acompanhamento);
+                }
+                
+                await carregarAcompanhamentos();
+                limparFormulario();
+                
+                alert(editId ? "Acompanhamento atualizado com sucesso!" : "Acompanhamento salvo com sucesso!");
+            } catch (error) {
+                console.error("Erro ao salvar acompanhamento:", error);
+                alert("Erro ao salvar acompanhamento. Tente novamente.");
+            }
+        });
+
+        // Editar acompanhamento
+        window.editarAcompanhamento = async function(id) {
+            try {
+                const docSnap = await getDocs(collection(dbAcompanhamentos, "acompanhamentos"));
+                
+                let acompanhamento = null;
+                docSnap.forEach((doc) => {
+                    if (doc.id === id) {
+                        acompanhamento = { id: doc.id, ...doc.data() };
+                    }
+                });
+                
+                if (!acompanhamento) {
+                    alert("Acompanhamento não encontrado");
+                    return;
+                }
+                
+                // Preencher formulário
+                clienteSelect.value = acompanhamento.clienteId;
+                dataAtualizacaoInput.value = acompanhamento.dataAtualizacao;
+                etapaInput.value = acompanhamento.etapa || '';
+                modeloInput.value = acompanhamento.modelo || '';
+                statusSelect.value = acompanhamento.status || 'Aguardando';
+                numeroPassoInput.value = acompanhamento.numeroPasso || '';
+                
+                editId = id;
+                saveBtn.textContent = "Atualizar";
+                deleteBtn.style.display = "inline-block";
+                
+                document.getElementById('dashboard').scrollIntoView({ behavior: 'smooth' });
+            } catch (error) {
+                console.error("Erro ao carregar acompanhamento para edição:", error);
+                alert("Erro ao carregar acompanhamento para edição.");
+            }
+        };
+
+        // Abrir modal de exclusão
+        window.abrirModalExclusao = function(id) {
+            editId = id;
+            deleteModal.style.display = "block";
+            senhaExclusaoInput.value = "";
+        };
+
+        // Fechar modal de exclusão
+        window.closeDeleteModal = function() {
+            deleteModal.style.display = "none";
+            editId = null;
+        };
+
+        // Confirmar exclusão
+        confirmDeleteBtn.addEventListener('click', async () => {
+            if (senhaExclusaoInput.value === "CosturADM2023") {
+                try {
+                    await deleteDoc(doc(dbAcompanhamentos, "acompanhamentos", editId));
+                    console.log("Acompanhamento excluído:", editId);
+                    
+                    await carregarAcompanhamentos();
+                    limparFormulario();
+                    closeDeleteModal();
+                    
+                    alert("Acompanhamento excluído com sucesso!");
+                } catch (error) {
+                    console.error("Erro ao excluir acompanhamento:", error);
+                    alert("Erro ao excluir acompanhamento. Tente novamente.");
+                }
+            } else {
+                alert("Senha incorreta. A exclusão não foi realizada.");
+            }
+        });
+
+        // Limpar formulário
+        function limparFormulario() {
+            acompanhamentoForm.reset();
+            atualizarData();
+            editId = null;
+            saveBtn.textContent = "Salvar";
+            deleteBtn.style.display = "none";
+        }
+
+        // Inicializar
+        async function init() {
+            atualizarData();
+            await carregarClientes();
+            await carregarAcompanhamentos();
+            
+            setInterval(atualizarData, 60000);
+        }
+
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
