@@ -586,7 +586,7 @@
                         </div>
                         
                         <div class="form-actions">
-                            <button type="button" class="btn" id="saveBtn">Salvar</button>
+                            <button type="submit" class="btn" id="saveBtn">Salvar</button>
                             <button type="button" class="btn btn-danger" id="deleteBtn" style="display: none;">Excluir</button>
                         </div>
                     </form>
@@ -621,38 +621,6 @@
             </div>
         </div>
     </section>
-
-    <!-- Modal para salvar -->
-    <div id="saveModal" class="modal">
-        <div class="modal-content">
-            <button class="close-btn" onclick="closeSaveModal()">×</button>
-            <h3 class="modal-title">Senha para Salvar</h3>
-            <div class="form-group">
-                <label for="senhaSalvar">Digite a senha de 4 dígitos para salvar:</label>
-                <input type="password" id="senhaSalvar" placeholder="****" maxlength="4" inputmode="numeric">
-            </div>
-            <div class="form-actions">
-                <button type="button" class="btn" id="confirmSaveBtn">Confirmar</button>
-                <button type="button" class="btn btn-danger" onclick="closeSaveModal()">Cancelar</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal para edição -->
-    <div id="editModal" class="modal">
-        <div class="modal-content">
-            <button class="close-btn" onclick="closeEditModal()">×</button>
-            <h3 class="modal-title">Senha para Editar</h3>
-            <div class="form-group">
-                <label for="senhaEdicao">Digite a senha para editar:</label>
-                <input type="password" id="senhaEdicao" placeholder="Senha de administrador">
-            </div>
-            <div class="form-actions">
-                <button type="button" class="btn" id="confirmEditBtn">Confirmar Edição</button>
-                <button type="button" class="btn btn-danger" onclick="closeEditModal()">Cancelar</button>
-            </div>
-        </div>
-    </div>
 
     <!-- Modal para exclusão -->
     <div id="deleteModal" class="modal">
@@ -715,14 +683,8 @@
         const deleteBtn = document.getElementById('deleteBtn');
         const quickViewContainer = document.getElementById('quickViewContainer');
         const filtroClienteSelect = document.getElementById('filtroCliente');
-        const saveModal = document.getElementById('saveModal');
-        const editModal = document.getElementById('editModal');
         const deleteModal = document.getElementById('deleteModal');
-        const confirmSaveBtn = document.getElementById('confirmSaveBtn');
-        const confirmEditBtn = document.getElementById('confirmEditBtn');
         const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
-        const senhaSalvarInput = document.getElementById('senhaSalvar');
-        const senhaEdicaoInput = document.getElementById('senhaEdicao');
         const senhaExclusaoInput = document.getElementById('senhaExclusao');
 
         // Variáveis globais
@@ -891,7 +853,7 @@
                         </div>
                     </div>
                     <div class="quick-view-actions">
-                        <button class="action-btn edit-btn" onclick="abrirModalEdicao('${acompanhamento.id}')">
+                        <button class="action-btn edit-btn" onclick="editarAcompanhamento('${acompanhamento.id}')">
                             <i class="fas fa-edit"></i> Editar
                         </button>
                         <button class="action-btn delete-btn" onclick="abrirModalExclusao('${acompanhamento.id}')">
@@ -918,37 +880,10 @@
             return "parado";
         }
 
-        // Abrir modal para salvar
-        saveBtn.addEventListener('click', () => {
-            // Validar formulário antes de abrir modal
-            if (!clienteSelect.value) {
-                alert("Selecione uma marca válida");
-                return;
-            }
-            saveModal.style.display = "block";
-            senhaSalvarInput.value = "";
-            senhaSalvarInput.focus();
-        });
-
-        // Fechar modal de salvar
-        window.closeSaveModal = function() {
-            saveModal.style.display = "none";
-        };
-
-        // Confirmar salvamento
-        confirmSaveBtn.addEventListener('click', async () => {
-            if (senhaSalvarInput.value === "1003") {
-                closeSaveModal();
-                await salvarAcompanhamento();
-            } else {
-                alert("Senha incorreta. O salvamento não foi autorizado.");
-                senhaSalvarInput.value = "";
-                senhaSalvarInput.focus();
-            }
-        });
-
         // Salvar ou atualizar acompanhamento
-        async function salvarAcompanhamento() {
+        acompanhamentoForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
             const clienteSelecionado = clientesAtivos.find(c => c.id === clienteSelect.value);
             if (!clienteSelecionado) {
                 alert("Selecione uma marca válida");
@@ -987,36 +922,10 @@
                 console.error("Erro ao salvar acompanhamento:", error);
                 alert("Erro ao salvar acompanhamento. Tente novamente.");
             }
-        }
-
-        // Abrir modal de edição
-        window.abrirModalEdicao = function(id) {
-            editId = id;
-            editModal.style.display = "block";
-            senhaEdicaoInput.value = "";
-            senhaEdicaoInput.focus();
-        };
-
-        // Fechar modal de edição
-        window.closeEditModal = function() {
-            editModal.style.display = "none";
-            editId = null;
-        };
-
-        // Confirmar edição
-        confirmEditBtn.addEventListener('click', async () => {
-            if (senhaEdicaoInput.value === "CosturADM2023") {
-                closeEditModal();
-                await carregarAcompanhamentoParaEdicao(editId);
-            } else {
-                alert("Senha incorreta. A edição não foi autorizada.");
-                senhaEdicaoInput.value = "";
-                senhaEdicaoInput.focus();
-            }
         });
 
-        // Carregar acompanhamento para edição após validação da senha
-        async function carregarAcompanhamentoParaEdicao(id) {
+        // Editar acompanhamento
+        window.editarAcompanhamento = async function(id) {
             try {
                 const docSnap = await getDocs(collection(dbAcompanhamentos, "acompanhamentos"));
                 
@@ -1049,14 +958,13 @@
                 console.error("Erro ao carregar acompanhamento para edição:", error);
                 alert("Erro ao carregar acompanhamento para edição.");
             }
-        }
+        };
 
         // Abrir modal de exclusão
         window.abrirModalExclusao = function(id) {
             editId = id;
             deleteModal.style.display = "block";
             senhaExclusaoInput.value = "";
-            senhaExclusaoInput.focus();
         };
 
         // Fechar modal de exclusão
@@ -1094,25 +1002,6 @@
             saveBtn.textContent = "Salvar";
             deleteBtn.style.display = "none";
         }
-
-        // Permitir Enter para confirmar nos modais
-        senhaSalvarInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                confirmSaveBtn.click();
-            }
-        });
-
-        senhaEdicaoInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                confirmEditBtn.click();
-            }
-        });
-
-        senhaExclusaoInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                confirmDeleteBtn.click();
-            }
-        });
 
         // Inicializar
         async function init() {
