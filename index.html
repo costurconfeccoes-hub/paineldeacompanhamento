@@ -6,6 +6,7 @@
     <title>Painel de Acompanhamento - Costur Confecções</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* ESTILOS ORIGINAIS - NÃO ALTERAR */
         * {
             margin: 0;
             padding: 0;
@@ -24,6 +25,8 @@
             --success: #2ecc71;
             --warning: #f39c12;
             --danger: #e74c3c;
+            --purple: #9b59b6;
+            --info: #3498db;
         }
 
         body {
@@ -278,6 +281,54 @@
             background-color: #c0392b;
         }
 
+        .btn-purple {
+            background-color: var(--purple);
+        }
+
+        .btn-purple:hover {
+            background-color: #8e44ad;
+        }
+
+        .btn-success {
+            background-color: var(--success);
+        }
+
+        .btn-success:hover {
+            background-color: #27ae60;
+        }
+
+        .btn-info {
+            background-color: var(--info);
+        }
+
+        .btn-info:hover {
+            background-color: #2980b9;
+        }
+
+        /* Botão para gerenciar modelos - MESMO ESTILO DOS OUTROS */
+        .modelos-btn-container {
+            margin-bottom: 12px;
+            text-align: left;
+        }
+        
+        .btn-modelos {
+            background-color: var(--purple);
+            color: white;
+            border: none;
+            padding: 6px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 0.7rem;
+            transition: background-color 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .btn-modelos:hover {
+            background-color: #8e44ad;
+        }
+
         /* Visualização Rápida - SUPER COMPACTA E COLADA */
         .quick-view-container {
             display: flex;
@@ -396,6 +447,15 @@
             background-color: rgba(231, 76, 60, 0.1);
         }
 
+        .view-btn {
+            color: var(--info);
+            border: 1px solid var(--info);
+        }
+
+        .view-btn:hover {
+            background-color: rgba(52, 152, 219, 0.1);
+        }
+
         /* Modal */
         .modal {
             display: none;
@@ -458,7 +518,386 @@
             margin-bottom: 5px;
         }
 
-        /* Responsive */
+        /* NOVOS ESTILOS - MANTENDO O PADRÃO ORIGINAL */
+        
+        /* Modal de visualização completa */
+        .modal-visualizacao {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+        }
+        
+        .modal-visualizacao-content {
+            position: relative;
+            width: 95%;
+            max-width: 600px;
+            margin: 5% auto;
+            background: white;
+            border-radius: 6px;
+            overflow: hidden;
+            padding: 15px;
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+        
+        /* Informações de visualização */
+        .info-section {
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .info-section h4 {
+            color: var(--primary);
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            border-bottom: 1px solid var(--secondary);
+            padding-bottom: 4px;
+        }
+        
+        .info-row {
+            display: flex;
+            margin-bottom: 6px;
+            font-size: 0.75rem;
+        }
+        
+        .info-label {
+            font-weight: 600;
+            color: var(--primary);
+            min-width: 120px;
+        }
+        
+        .info-value {
+            color: var(--text);
+            flex: 1;
+        }
+        
+        .info-status {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            color: white;
+        }
+        
+        /* Lista de etapas na visualização */
+        .etapas-lista-visualizacao {
+            margin-top: 10px;
+        }
+        
+        .etapa-item-visualizacao {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px;
+            margin-bottom: 6px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            border-left: 4px solid #ddd;
+        }
+        
+        .etapa-item-visualizacao.aguardando {
+            border-left-color: var(--warning);
+        }
+        
+        .etapa-item-visualizacao.producao {
+            border-left-color: var(--secondary);
+        }
+        
+        .etapa-item-visualizacao.realizado {
+            border-left-color: var(--success);
+        }
+        
+        .etapa-item-visualizacao.parado {
+            border-left-color: var(--danger);
+        }
+        
+        .etapa-numero-visualizacao {
+            font-weight: bold;
+            color: var(--primary);
+            font-size: 0.7rem;
+            min-width: 25px;
+            text-align: center;
+        }
+        
+        .etapa-nome-visualizacao {
+            flex: 1;
+            font-size: 0.75rem;
+            color: var(--text);
+        }
+        
+        .etapa-status-visualizacao {
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.65rem;
+            font-weight: bold;
+            color: white;
+            min-width: 100px;
+            text-align: center;
+        }
+        
+        .status-aguardando-bg {
+            background-color: var(--warning);
+        }
+        
+        .status-producao-bg {
+            background-color: var(--secondary);
+        }
+        
+        .status-realizado-bg {
+            background-color: var(--success);
+        }
+        
+        .status-parado-bg {
+            background-color: var(--danger);
+        }
+        
+        /* Barra de progresso */
+        .progress-container {
+            margin-top: 8px;
+            margin-bottom: 12px;
+        }
+        
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 4px;
+            font-size: 0.7rem;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background-color: #e9ecef;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background-color: var(--success);
+            transition: width 0.3s ease;
+        }
+        
+        /* Modal de modelos - mesmo estilo da modal original */
+        .modal-modelos {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+        }
+        
+        .modal-modelos-content {
+            position: relative;
+            width: 95%;
+            max-width: 500px;
+            margin: 5% auto;
+            background: white;
+            border-radius: 6px;
+            overflow: hidden;
+            padding: 15px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        /* Formulário de modelos - mesmo estilo do formulário principal */
+        .form-modelo {
+            background-color: white;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            border-left: 3px solid var(--purple);
+        }
+        
+        .form-modelo h4 {
+            margin-bottom: 8px;
+            color: var(--primary);
+            border-bottom: 1px solid var(--purple);
+            padding-bottom: 4px;
+            font-size: 0.9rem;
+        }
+        
+        /* Contêiner de etapas */
+        .etapas-container {
+            margin-top: 8px;
+            margin-bottom: 8px;
+        }
+        
+        .etapa-item {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 6px;
+            align-items: center;
+        }
+        
+        .etapa-input {
+            flex: 1;
+            padding: 5px 7px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            font-size: 0.75rem;
+            background-color: white;
+        }
+        
+        /* Botões de etapa - mesmo estilo dos outros botões */
+        .btn-etapa {
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 0.7rem;
+            transition: background-color 0.3s;
+        }
+        
+        .btn-etapa:hover {
+            background-color: #2980b9;
+        }
+        
+        /* Lista de modelos - estilo compacto similar ao quick-view */
+        .modelos-lista {
+            margin-top: 15px;
+        }
+        
+        .modelos-lista h4 {
+            margin-bottom: 8px;
+            color: var(--primary);
+            font-size: 0.9rem;
+        }
+        
+        .modelo-item {
+            background-color: white;
+            padding: 8px 10px;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 8px;
+            border-radius: 4px;
+            border-left: 3px solid var(--purple);
+        }
+        
+        .modelo-info h5 {
+            color: var(--primary);
+            margin-bottom: 4px;
+            font-size: 0.8rem;
+        }
+        
+        .modelo-etapas {
+            font-size: 0.7rem;
+            color: #666;
+            margin-bottom: 4px;
+            line-height: 1.3;
+        }
+        
+        .modelo-status {
+            padding: 2px 6px;
+            border-radius: 8px;
+            font-size: 0.65rem;
+            font-weight: bold;
+            color: white;
+            display: inline-block;
+        }
+        
+        .status-ativo {
+            background-color: var(--success);
+        }
+        
+        .status-inativo {
+            background-color: #95a5a6;
+        }
+        
+        .modelo-actions {
+            display: flex;
+            gap: 4px;
+            justify-content: flex-end;
+            margin-top: 6px;
+        }
+
+        /* Botão para carregar etapas */
+        .btn-carregar-modelo {
+            margin-top: 5px;
+            background-color: var(--success);
+            color: white;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 0.7rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            width: auto;
+        }
+        
+        .btn-carregar-modelo:hover {
+            background-color: #27ae60;
+        }
+
+        /* Container de etapas no acompanhamento */
+        .etapas-acompanhamento {
+            margin-top: 10px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            padding: 8px;
+            border: 1px solid #e9ecef;
+        }
+
+        .etapa-acompanhamento-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+            padding: 6px;
+            background-color: white;
+            border-radius: 3px;
+            border-left: 3px solid #ddd;
+        }
+
+        .etapa-acompanhamento-item.aguardando {
+            border-left-color: var(--warning);
+        }
+
+        .etapa-acompanhamento-item.producao {
+            border-left-color: var(--secondary);
+        }
+
+        .etapa-acompanhamento-item.realizado {
+            border-left-color: var(--success);
+        }
+
+        .etapa-acompanhamento-item.parado {
+            border-left-color: var(--danger);
+        }
+
+        .etapa-numero {
+            font-weight: bold;
+            color: var(--primary);
+            font-size: 0.7rem;
+            min-width: 20px;
+        }
+
+        .etapa-nome {
+            flex: 1;
+            font-size: 0.75rem;
+        }
+
+        .etapa-status-select {
+            padding: 3px 6px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            font-size: 0.7rem;
+            min-width: 120px;
+        }
+
+        /* Responsive - mantendo o padrão original */
         @media (max-width: 768px) {
             .header-content {
                 flex-direction: column;
@@ -482,6 +921,26 @@
             .quick-view-details-compact {
                 grid-template-columns: repeat(2, 1fr);
             }
+            
+            .modal-modelos-content,
+            .modal-visualizacao-content {
+                width: 90%;
+                margin: 10% auto;
+            }
+            
+            .info-row {
+                flex-direction: column;
+                margin-bottom: 8px;
+            }
+            
+            .info-label {
+                min-width: auto;
+                margin-bottom: 2px;
+            }
+            
+            .quick-view-actions {
+                flex-wrap: wrap;
+            }
         }
 
         @media (max-width: 480px) {
@@ -504,6 +963,21 @@
 
             .quick-view-details-compact {
                 grid-template-columns: 1fr;
+            }
+            
+            .modelo-actions,
+            .quick-view-actions {
+                flex-wrap: wrap;
+            }
+            
+            .etapa-item-visualizacao {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
+            
+            .etapa-status-visualizacao {
+                align-self: flex-start;
             }
         }
     </style>
@@ -541,6 +1015,13 @@
                 <h2>Painel de Acompanhamento</h2>
             </div>
             
+            <!-- Botão para gerenciar modelos -->
+            <div class="modelos-btn-container">
+                <button class="btn-modelos" onclick="abrirModalModelos()">
+                    <i class="fas fa-tshirt"></i> Gerenciar Modelos
+                </button>
+            </div>
+            
             <div class="dashboard-container">
                 <!-- Formulário -->
                 <div class="form-container">
@@ -554,23 +1035,31 @@
                         </div>
                         
                         <div class="form-group">
+                            <label for="modeloProduto">Modelo de Produto</label>
+                            <div style="display: flex; gap: 5px;">
+                                <select id="modeloProduto" style="flex: 1;" onchange="carregarEtapasDoModelo()">
+                                    <option value="">Selecione um modelo</option>
+                                </select>
+                                <button type="button" class="btn-carregar-modelo" onclick="abrirModalModelos()">
+                                    <i class="fas fa-cog"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
                             <label for="dataAtualizacao">Data de Atualização</label>
                             <input type="text" id="dataAtualizacao" readonly>
                         </div>
                         
-                        <div class="form-group">
-                            <label for="etapa">Etapa</label>
-                            <input type="text" id="etapa" placeholder="Ex: Corte, Costura, Acabamento">
+                        <!-- As etapas serão carregadas aqui dinamicamente -->
+                        <div id="etapasContainer" style="display: none;">
+                            <h4 style="font-size: 0.9rem; margin-bottom: 8px; color: var(--primary);">Etapas do Produto</h4>
+                            <div id="listaEtapas"></div>
                         </div>
                         
                         <div class="form-group">
-                            <label for="modelo">Modelo</label>
-                            <input type="text" id="modelo" placeholder="Ex: Camiseta básica, Vestido longo">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="status">Status</label>
-                            <select id="status">
+                            <label for="statusGeral">Status Geral</label>
+                            <select id="statusGeral">
                                 <option value="Aguardando">Aguardando</option>
                                 <option value="Em produção">Em produção</option>
                                 <option value="Realizado">Realizado</option>
@@ -581,8 +1070,8 @@
                         </div>
                         
                         <div class="form-group">
-                            <label for="numeroPasso">Número do Passo</label>
-                            <input type="number" id="numeroPasso" placeholder="Ex: 1, 2, 3...">
+                            <label for="observacoes">Observações</label>
+                            <input type="text" id="observacoes" placeholder="Observações adicionais">
                         </div>
                         
                         <div class="form-actions">
@@ -592,7 +1081,7 @@
                     </form>
                 </div>
                 
-                <!-- Visualização Rápida SUPER COMPACTA E COLADA -->
+                <!-- Visualização Rápida -->
                 <div>
                     <!-- Filtro por Cliente -->
                     <div class="filter-container">
@@ -638,13 +1127,80 @@
         </div>
     </div>
 
+    <!-- Modal para visualização completa -->
+    <div id="visualizacaoModal" class="modal-visualizacao">
+        <div class="modal-visualizacao-content">
+            <button class="close-btn" onclick="fecharModalVisualizacao()">×</button>
+            <h3 class="modal-title">Visualização Completa</h3>
+            
+            <div id="conteudoVisualizacao">
+                <!-- Conteúdo será carregado dinamicamente -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para gerenciamento de modelos -->
+    <div id="modelosModal" class="modal-modelos">
+        <div class="modal-modelos-content">
+            <button class="close-btn" onclick="fecharModalModelos()">×</button>
+            <h3 class="modal-title">Gerenciar Modelos de Produtos</h3>
+            
+            <!-- Formulário para criar/editar modelo -->
+            <div class="form-modelo">
+                <h4 id="formModeloTitulo">Novo Modelo</h4>
+                <div class="form-group">
+                    <label for="nomeModelo">Nome do Modelo</label>
+                    <input type="text" id="nomeModelo" placeholder="Ex: Calça Jeans, Camiseta Básica" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="descricaoModelo">Descrição (opcional)</label>
+                    <input type="text" id="descricaoModelo" placeholder="Breve descrição do modelo" class="form-control">
+                </div>
+                
+                <div class="form-group">
+                    <label>Etapas do Modelo</label>
+                    <div class="etapas-container" id="formEtapasContainer">
+                        <!-- Etapas serão adicionadas aqui dinamicamente -->
+                    </div>
+                    <button type="button" class="btn-etapa" onclick="adicionarEtapaNoFormulario()">
+                        <i class="fas fa-plus"></i> Adicionar Etapa
+                    </button>
+                </div>
+                
+                <div class="form-group">
+                    <label for="statusModelo">Status do Modelo</label>
+                    <select id="statusModelo" class="form-control">
+                        <option value="ativo">Ativo</option>
+                        <option value="inativo">Inativo</option>
+                    </select>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn btn-purple" id="salvarModeloBtn" onclick="salvarModelo()">Salvar Modelo</button>
+                    <button type="button" class="btn" onclick="limparFormularioModelo()">Cancelar</button>
+                </div>
+            </div>
+            
+            <!-- Lista de modelos cadastrados -->
+            <div class="modelos-lista">
+                <h4>Modelos Cadastrados</h4>
+                <div id="listaModelos">
+                    <div class="loading">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <p>Carregando modelos...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Firebase SDK -->
     <script type="module">
         // Import the functions you need from the Firebase SDKs
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
-        import { getFirestore, collection, addDoc, getDocs, updateDoc, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, getDocs, updateDoc, deleteDoc, doc, query, orderBy } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
 
-        // Configuração do Firebase para CLIENTES
+        // Configurações Firebase (mantenha as existentes)
         const firebaseConfigClientes = {
             apiKey: "AIzaSyCyTwlzsMG5-l07vnrb8XIx9J6AIP_Xuvw",
             authDomain: "cadastro-cliente-6bd66.firebaseapp.com",
@@ -654,7 +1210,6 @@
             appId: "1:492238035100:web:cfb93092a71798dd2e7559"
         };
 
-        // Configuração do Firebase para ACOMPANHAMENTOS
         const firebaseConfigAcompanhamentos = {
             apiKey: "AIzaSyDRpSahfuooSK37x4pC9Q9fKUZrVLg7szk",
             authDomain: "painel-de-acompanhamento-9b51a.firebaseapp.com",
@@ -675,10 +1230,8 @@
         const acompanhamentoForm = document.getElementById('acompanhamentoForm');
         const clienteSelect = document.getElementById('cliente');
         const dataAtualizacaoInput = document.getElementById('dataAtualizacao');
-        const etapaInput = document.getElementById('etapa');
-        const modeloInput = document.getElementById('modelo');
-        const statusSelect = document.getElementById('status');
-        const numeroPassoInput = document.getElementById('numeroPasso');
+        const statusGeralSelect = document.getElementById('statusGeral');
+        const observacoesInput = document.getElementById('observacoes');
         const saveBtn = document.getElementById('saveBtn');
         const deleteBtn = document.getElementById('deleteBtn');
         const quickViewContainer = document.getElementById('quickViewContainer');
@@ -686,12 +1239,32 @@
         const deleteModal = document.getElementById('deleteModal');
         const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
         const senhaExclusaoInput = document.getElementById('senhaExclusao');
+        
+        // NOVAS REFERÊNCIAS
+        const modelosModal = document.getElementById('modelosModal');
+        const visualizacaoModal = document.getElementById('visualizacaoModal');
+        const conteudoVisualizacao = document.getElementById('conteudoVisualizacao');
+        const modeloProdutoSelect = document.getElementById('modeloProduto');
+        const etapasContainer = document.getElementById('etapasContainer');
+        const listaEtapas = document.getElementById('listaEtapas');
+        
+        // Referências para o formulário de modelos
+        const nomeModeloInput = document.getElementById('nomeModelo');
+        const descricaoModeloInput = document.getElementById('descricaoModelo');
+        const statusModeloSelect = document.getElementById('statusModelo');
+        const formEtapasContainer = document.getElementById('formEtapasContainer');
+        const listaModelos = document.getElementById('listaModelos');
+        const salvarModeloBtn = document.getElementById('salvarModeloBtn');
+        const formModeloTitulo = document.getElementById('formModeloTitulo');
 
         // Variáveis globais
         let editId = null;
+        let editModeloId = null;
         let clientesAtivos = [];
         let todosAcompanhamentos = [];
         let filtroAtual = '';
+        let modelosProdutos = [];
+        let etapasAtuais = [];
 
         // Atualizar data automaticamente
         function atualizarData() {
@@ -757,7 +1330,428 @@
             }
         }
 
-        // Carregar acompanhamentos do Firebase
+        // Carregar modelos de produtos do Firebase
+        async function carregarModelosProdutos() {
+            try {
+                console.log("Carregando modelos de produtos...");
+                
+                const q = query(collection(dbAcompanhamentos, "modelosProdutos"), orderBy("nomeModelo"));
+                const querySnapshot = await getDocs(q);
+                modelosProdutos = [];
+                
+                querySnapshot.forEach((doc) => {
+                    const modelo = doc.data();
+                    modelosProdutos.push({
+                        id: doc.id,
+                        ...modelo
+                    });
+                });
+
+                console.log("Modelos carregados:", modelosProdutos);
+                atualizarSelectModelos();
+                exibirListaModelos();
+
+            } catch (error) {
+                console.error("Erro ao carregar modelos:", error);
+            }
+        }
+
+        // Atualizar select de modelos no formulário principal
+        function atualizarSelectModelos() {
+            modeloProdutoSelect.innerHTML = '<option value="">Selecione um modelo</option>';
+            
+            const modelosAtivos = modelosProdutos.filter(modelo => modelo.status === "ativo");
+            
+            if (modelosAtivos.length === 0) {
+                const option = document.createElement('option');
+                option.value = "";
+                option.textContent = "Nenhum modelo ativo";
+                modeloProdutoSelect.appendChild(option);
+                return;
+            }
+            
+            modelosAtivos.forEach(modelo => {
+                const option = document.createElement('option');
+                option.value = modelo.id;
+                option.textContent = modelo.nomeModelo;
+                modeloProdutoSelect.appendChild(option);
+            });
+        }
+
+        // Exibir lista de modelos na modal
+        function exibirListaModelos() {
+            listaModelos.innerHTML = '';
+            
+            if (modelosProdutos.length === 0) {
+                listaModelos.innerHTML = '<div class="loading"><p>Nenhum modelo cadastrado</p></div>';
+                return;
+            }
+            
+            modelosProdutos.forEach(modelo => {
+                const modeloDiv = document.createElement('div');
+                modeloDiv.className = 'modelo-item';
+                
+                // Formatar etapas para exibição
+                const etapasTexto = modelo.etapas && modelo.etapas.length > 0 
+                    ? `Etapas: ${modelo.etapas.length}` 
+                    : 'Sem etapas cadastradas';
+                
+                modeloDiv.innerHTML = `
+                    <div class="modelo-info">
+                        <h5>${modelo.nomeModelo}</h5>
+                        <p class="modelo-etapas">${etapasTexto}</p>
+                        <span class="modelo-status status-${modelo.status}">${modelo.status === 'ativo' ? 'Ativo' : 'Inativo'}</span>
+                    </div>
+                    <div class="modelo-actions">
+                        <button class="action-btn edit-btn" onclick="editarModelo('${modelo.id}')">
+                            <i class="fas fa-edit"></i> Editar
+                        </button>
+                        <button class="action-btn delete-btn" onclick="excluirModelo('${modelo.id}')">
+                            <i class="fas fa-trash"></i> Excluir
+                        </button>
+                        <button class="action-btn ${modelo.status === 'ativo' ? 'delete-btn' : 'edit-btn'}" 
+                                onclick="alternarStatusModelo('${modelo.id}', '${modelo.status}')">
+                            <i class="fas ${modelo.status === 'ativo' ? 'fa-toggle-off' : 'fa-toggle-on'}"></i>
+                        </button>
+                    </div>
+                `;
+                
+                listaModelos.appendChild(modeloDiv);
+            });
+        }
+
+        // Carregar etapas quando selecionar um modelo
+        window.carregarEtapasDoModelo = function() {
+            const modeloId = modeloProdutoSelect.value;
+            const modelo = modelosProdutos.find(m => m.id === modeloId);
+            
+            if (modelo && modelo.etapas && modelo.etapas.length > 0) {
+                etapasAtuais = modelo.etapas;
+                
+                // Mostrar container de etapas
+                etapasContainer.style.display = 'block';
+                listaEtapas.innerHTML = '';
+                
+                // Criar uma div para cada etapa
+                modelo.etapas.forEach((etapa, index) => {
+                    const etapaDiv = document.createElement('div');
+                    etapaDiv.className = 'etapa-acompanhamento-item aguardando';
+                    etapaDiv.innerHTML = `
+                        <div class="etapa-numero">${index + 1}</div>
+                        <div class="etapa-nome">${etapa}</div>
+                        <select class="etapa-status-select" data-etapa-index="${index}" onchange="atualizarStatusEtapa(${index}, this.value)">
+                            <option value="Aguardando">Aguardando</option>
+                            <option value="Em produção">Em produção</option>
+                            <option value="Realizado">Realizado</option>
+                            <option value="Parado">Parado</option>
+                        </select>
+                    `;
+                    listaEtapas.appendChild(etapaDiv);
+                });
+            } else {
+                etapasContainer.style.display = 'none';
+                etapasAtuais = [];
+            }
+        };
+
+        // Atualizar status de uma etapa específica
+        window.atualizarStatusEtapa = function(index, status) {
+            const etapaDiv = listaEtapas.children[index];
+            
+            // Remover todas as classes de status
+            etapaDiv.classList.remove('aguardando', 'producao', 'realizado', 'parado');
+            
+            // Adicionar classe correspondente ao status
+            if (status === 'Aguardando') etapaDiv.classList.add('aguardando');
+            else if (status === 'Em produção') etapaDiv.classList.add('producao');
+            else if (status === 'Realizado') etapaDiv.classList.add('realizado');
+            else if (status === 'Parado') etapaDiv.classList.add('parado');
+        };
+
+        // Gerenciamento de Modelos - Modal
+        window.abrirModalModelos = function() {
+            modelosModal.style.display = "block";
+            limparFormularioModelo();
+            carregarModelosProdutos();
+        };
+
+        window.fecharModalModelos = function() {
+            modelosModal.style.display = "none";
+        };
+
+        // Abrir modal de visualização
+        window.abrirModalVisualizacao = function(id) {
+            const acompanhamento = todosAcompanhamentos.find(a => a.id === id);
+            if (!acompanhamento) return;
+            
+            visualizacaoModal.style.display = "block";
+            exibirConteudoVisualizacao(acompanhamento);
+        };
+
+        // Fechar modal de visualização
+        window.fecharModalVisualizacao = function() {
+            visualizacaoModal.style.display = "none";
+        };
+
+        // Exibir conteúdo na modal de visualização
+        function exibirConteudoVisualizacao(acompanhamento) {
+            // Calcular progresso das etapas
+            let etapasRealizadas = 0;
+            let totalEtapas = 0;
+            if (acompanhamento.etapasStatus) {
+                totalEtapas = Object.keys(acompanhamento.etapasStatus).length;
+                etapasRealizadas = Object.values(acompanhamento.etapasStatus).filter(status => status === 'Realizado').length;
+            }
+            
+            const progresso = totalEtapas > 0 ? Math.round((etapasRealizadas / totalEtapas) * 100) : 0;
+            
+            // Função para obter classe CSS do status
+            function getStatusClass(status) {
+                if (!status) return "aguardando";
+                if (status === "Aguardando") return "aguardando";
+                if (status === "Em produção") return "producao";
+                if (status === "Realizado") return "realizado";
+                return "parado";
+            }
+            
+            // Função para obter texto do status
+            function getStatusText(status) {
+                if (!status) return "Aguardando";
+                return status;
+            }
+            
+            // Função para obter classe de background do status
+            function getStatusBgClass(status) {
+                if (!status) return "status-aguardando-bg";
+                if (status === "Aguardando") return "status-aguardando-bg";
+                if (status === "Em produção") return "status-producao-bg";
+                if (status === "Realizado") return "status-realizado-bg";
+                return "status-parado-bg";
+            }
+            
+            conteudoVisualizacao.innerHTML = `
+                <div class="info-section">
+                    <h4>Informações do Cliente</h4>
+                    <div class="info-row">
+                        <div class="info-label">Cliente (Marca):</div>
+                        <div class="info-value">${acompanhamento.clienteMarca || 'Não informado'}</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">Data de Criação:</div>
+                        <div class="info-value">${acompanhamento.dataCriacao || 'Não informada'}</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">Última Atualização:</div>
+                        <div class="info-value">${acompanhamento.dataAtualizacao || 'Não informada'}</div>
+                    </div>
+                </div>
+                
+                <div class="info-section">
+                    <h4>Informações do Produto</h4>
+                    <div class="info-row">
+                        <div class="info-label">Modelo do Produto:</div>
+                        <div class="info-value">${acompanhamento.modeloNome || 'Não informado'}</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">Status Geral:</div>
+                        <div class="info-value">
+                            <span class="info-status status-${getStatusClass(acompanhamento.statusGeral)}">
+                                ${getStatusText(acompanhamento.statusGeral)}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">Observações:</div>
+                        <div class="info-value">${acompanhamento.observacoes || 'Nenhuma observação'}</div>
+                    </div>
+                </div>
+                
+                <div class="info-section">
+                    <h4>Progresso do Produto</h4>
+                    <div class="progress-container">
+                        <div class="progress-label">
+                            <span>Progresso Geral</span>
+                            <span>${etapasRealizadas}/${totalEtapas} etapas (${progresso}%)</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${progresso}%"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="info-section">
+                    <h4>Etapas do Produto</h4>
+                    <div class="etapas-lista-visualizacao" id="listaEtapasVisualizacao">
+                        ${acompanhamento.etapas && acompanhamento.etapas.length > 0 ? 
+                            acompanhamento.etapas.map((etapa, index) => {
+                                const status = acompanhamento.etapasStatus ? acompanhamento.etapasStatus[index] : 'Aguardando';
+                                return `
+                                    <div class="etapa-item-visualizacao ${getStatusClass(status)}">
+                                        <div class="etapa-numero-visualizacao">${index + 1}</div>
+                                        <div class="etapa-nome-visualizacao">${etapa}</div>
+                                        <div class="etapa-status-visualizacao ${getStatusBgClass(status)}">
+                                            ${getStatusText(status)}
+                                        </div>
+                                    </div>
+                                `;
+                            }).join('')
+                            : '<div class="loading"><p>Nenhuma etapa cadastrada</p></div>'
+                        }
+                    </div>
+                </div>
+                
+                <div class="form-actions" style="justify-content: center; margin-top: 20px;">
+                    <button type="button" class="btn btn-info" onclick="fecharModalVisualizacao()">
+                        <i class="fas fa-times"></i> Fechar
+                    </button>
+                </div>
+            `;
+        }
+
+        // Adicionar campo de etapa no formulário de modelo
+        window.adicionarEtapaNoFormulario = function(valor = '') {
+            const etapaDiv = document.createElement('div');
+            etapaDiv.className = 'etapa-item';
+            etapaDiv.innerHTML = `
+                <input type="text" class="etapa-input" value="${valor}" placeholder="Nome da etapa (ex: Corte, Costura)">
+                <button type="button" class="btn-etapa delete-btn" onclick="removerEtapa(this)" style="background-color: var(--danger);">
+                    <i class="fas fa-trash"></i>
+                </button>
+            `;
+            formEtapasContainer.appendChild(etapaDiv);
+        };
+
+        window.removerEtapa = function(botao) {
+            botao.parentElement.remove();
+        };
+
+        // Salvar modelo
+        window.salvarModelo = async function() {
+            const nomeModelo = nomeModeloInput.value.trim();
+            const descricao = descricaoModeloInput.value.trim();
+            const status = statusModeloSelect.value;
+            
+            if (!nomeModelo) {
+                alert("Por favor, insira um nome para o modelo");
+                return;
+            }
+            
+            // Coletar etapas
+            const etapasInputs = formEtapasContainer.querySelectorAll('.etapa-input');
+            const etapas = Array.from(etapasInputs)
+                .map(input => input.value.trim())
+                .filter(etapa => etapa !== '');
+            
+            if (etapas.length === 0) {
+                alert("Adicione pelo menos uma etapa para o modelo");
+                return;
+            }
+            
+            const modeloData = {
+                nomeModelo,
+                descricao,
+                etapas,
+                status,
+                dataCriacao: new Date().toISOString()
+            };
+            
+            try {
+                if (editModeloId) {
+                    // Atualizar modelo existente
+                    const docRef = doc(dbAcompanhamentos, "modelosProdutos", editModeloId);
+                    await updateDoc(docRef, modeloData);
+                    console.log("Modelo atualizado:", modeloData);
+                } else {
+                    // Criar novo modelo
+                    await addDoc(collection(dbAcompanhamentos, "modelosProdutos"), modeloData);
+                    console.log("Modelo criado:", modeloData);
+                }
+                
+                await carregarModelosProdutos();
+                limparFormularioModelo();
+                alert(editModeloId ? "Modelo atualizado com sucesso!" : "Modelo criado com sucesso!");
+                
+            } catch (error) {
+                console.error("Erro ao salvar modelo:", error);
+                alert("Erro ao salvar modelo. Tente novamente.");
+            }
+        };
+
+        // Editar modelo
+        window.editarModelo = function(id) {
+            const modelo = modelosProdutos.find(m => m.id === id);
+            if (!modelo) return;
+            
+            editModeloId = id;
+            nomeModeloInput.value = modelo.nomeModelo;
+            descricaoModeloInput.value = modelo.descricao || '';
+            statusModeloSelect.value = modelo.status;
+            formModeloTitulo.textContent = "Editar Modelo";
+            salvarModeloBtn.textContent = "Atualizar Modelo";
+            
+            // Limpar e adicionar etapas
+            formEtapasContainer.innerHTML = '';
+            if (modelo.etapas) {
+                modelo.etapas.forEach(etapa => adicionarEtapaNoFormulario(etapa));
+            } else {
+                adicionarEtapaNoFormulario();
+            }
+            
+            // Scroll para o formulário
+            document.querySelector('.form-modelo').scrollIntoView({ behavior: 'smooth' });
+        };
+
+        // Alternar status do modelo (ativo/inativo)
+        window.alternarStatusModelo = async function(id, statusAtual) {
+            const novoStatus = statusAtual === 'ativo' ? 'inativo' : 'ativo';
+            
+            if (!confirm(`Tem certeza que deseja ${novoStatus === 'ativo' ? 'ativar' : 'desativar'} este modelo?`)) {
+                return;
+            }
+            
+            try {
+                const docRef = doc(dbAcompanhamentos, "modelosProdutos", id);
+                await updateDoc(docRef, { status: novoStatus });
+                
+                await carregarModelosProdutos();
+                console.log(`Status do modelo ${id} alterado para ${novoStatus}`);
+                
+            } catch (error) {
+                console.error("Erro ao alterar status do modelo:", error);
+                alert("Erro ao alterar status. Tente novamente.");
+            }
+        };
+
+        // Excluir modelo
+        window.excluirModelo = async function(id) {
+            if (!confirm("Tem certeza que deseja excluir este modelo? Esta ação não pode ser desfeita.")) {
+                return;
+            }
+            
+            try {
+                await deleteDoc(doc(dbAcompanhamentos, "modelosProdutos", id));
+                await carregarModelosProdutos();
+                alert("Modelo excluído com sucesso!");
+                
+            } catch (error) {
+                console.error("Erro ao excluir modelo:", error);
+                alert("Erro ao excluir modelo. Tente novamente.");
+            }
+        };
+
+        // Limpar formulário de modelo
+        window.limparFormularioModelo = function() {
+            nomeModeloInput.value = '';
+            descricaoModeloInput.value = '';
+            statusModeloSelect.value = 'ativo';
+            formEtapasContainer.innerHTML = '';
+            adicionarEtapaNoFormulario(); // Adiciona um campo vazio por padrão
+            editModeloId = null;
+            formModeloTitulo.textContent = "Novo Modelo";
+            salvarModeloBtn.textContent = "Salvar Modelo";
+        };
+
+        // Funções existentes do painel de acompanhamento
         async function carregarAcompanhamentos() {
             try {
                 console.log("Carregando acompanhamentos...");
@@ -774,7 +1768,7 @@
                 });
 
                 console.log("Todos os acompanhamentos carregados:", todosAcompanhamentos);
-                aplicarFiltro(); // Aplicar filtro após carregar
+                aplicarFiltro();
 
             } catch (error) {
                 console.error("Erro ao carregar acompanhamentos:", error);
@@ -796,14 +1790,14 @@
             }
             
             exibirAcompanhamentos(acompanhamentosFiltrados);
-        }
+        };
 
         // Limpar filtro
         window.limparFiltro = function() {
             filtroClienteSelect.value = '';
             filtroAtual = '';
             exibirAcompanhamentos(todosAcompanhamentos);
-        }
+        };
 
         // Exibir acompanhamentos na tela
         function exibirAcompanhamentos(acompanhamentos) {
@@ -818,34 +1812,45 @@
                 return;
             }
 
-            // ORDENAR POR numeroPasso (sequência numérica)
+            // ORDENAR por data de criação mais recente primeiro
             acompanhamentos.sort((a, b) => {
-                const passoA = a.numeroPasso || 0;
-                const passoB = b.numeroPasso || 0;
-                return passoA - passoB;
+                const dataA = new Date(a.dataCriacao || 0);
+                const dataB = new Date(b.dataCriacao || 0);
+                return dataB - dataA;
             });
 
             // Preencher visualização rápida SUPER COMPACTA
             acompanhamentos.forEach(acompanhamento => {
                 const quickItem = document.createElement('div');
                 quickItem.className = 'quick-view-item';
+                
+                // Calcular progresso das etapas
+                let etapasRealizadas = 0;
+                let totalEtapas = 0;
+                if (acompanhamento.etapasStatus) {
+                    totalEtapas = Object.keys(acompanhamento.etapasStatus).length;
+                    etapasRealizadas = Object.values(acompanhamento.etapasStatus).filter(status => status === 'Realizado').length;
+                }
+                
+                const progresso = totalEtapas > 0 ? Math.round((etapasRealizadas / totalEtapas) * 100) : 0;
+                
                 quickItem.innerHTML = `
                     <div class="quick-view-header">
                         <div class="quick-view-cliente">${acompanhamento.clienteMarca || acompanhamento.clienteId || 'Marca não informada'}</div>
-                        <div class="quick-view-status status-${getStatusClass(acompanhamento.status)}">${acompanhamento.status || 'Sem status'}</div>
+                        <div class="quick-view-status status-${getStatusClass(acompanhamento.statusGeral)}">${acompanhamento.statusGeral || 'Sem status'}</div>
                     </div>
                     <div class="quick-view-details-compact">
                         <div class="detail-compact">
-                            <span class="detail-label-compact">Etapa</span>
-                            <span class="detail-value-compact">${acompanhamento.etapa || '-'}</span>
-                        </div>
-                        <div class="detail-compact">
                             <span class="detail-label-compact">Modelo</span>
-                            <span class="detail-value-compact">${acompanhamento.modelo || '-'}</span>
+                            <span class="detail-value-compact">${acompanhamento.modeloNome || '-'}</span>
                         </div>
                         <div class="detail-compact">
-                            <span class="detail-label-compact">Passo</span>
-                            <span class="detail-value-compact">${acompanhamento.numeroPasso || '0'}</span>
+                            <span class="detail-label-compact">Etapas</span>
+                            <span class="detail-value-compact">${etapasRealizadas}/${totalEtapas}</span>
+                        </div>
+                        <div class="detail-compact">
+                            <span class="detail-label-compact">Progresso</span>
+                            <span class="detail-value-compact">${progresso}%</span>
                         </div>
                         <div class="detail-compact">
                             <span class="detail-label-compact">Atualização</span>
@@ -853,6 +1858,9 @@
                         </div>
                     </div>
                     <div class="quick-view-actions">
+                        <button class="action-btn view-btn" onclick="abrirModalVisualizacao('${acompanhamento.id}')">
+                            <i class="fas fa-eye"></i> Visualizar
+                        </button>
                         <button class="action-btn edit-btn" onclick="editarAcompanhamento('${acompanhamento.id}')">
                             <i class="fas fa-edit"></i> Editar
                         </button>
@@ -890,14 +1898,29 @@
                 return;
             }
             
+            const modeloSelecionado = modelosProdutos.find(m => m.id === modeloProdutoSelect.value);
+            if (!modeloSelecionado) {
+                alert("Selecione um modelo válido");
+                return;
+            }
+            
+            // Coletar status das etapas
+            const etapasStatus = {};
+            const etapaStatusSelects = listaEtapas.querySelectorAll('.etapa-status-select');
+            etapaStatusSelects.forEach((select, index) => {
+                etapasStatus[index] = select.value;
+            });
+            
             const acompanhamento = {
                 clienteId: clienteSelect.value,
                 clienteMarca: clienteSelecionado.marca,
+                modeloId: modeloProdutoSelect.value,
+                modeloNome: modeloSelecionado.nomeModelo,
                 dataAtualizacao: dataAtualizacaoInput.value,
-                etapa: etapaInput.value,
-                modelo: modeloInput.value,
-                status: statusSelect.value,
-                numeroPasso: parseInt(numeroPassoInput.value) || 0
+                etapas: etapasAtuais,
+                etapasStatus: etapasStatus,
+                statusGeral: statusGeralSelect.value,
+                observacoes: observacoesInput.value
             };
 
             if (!editId) {
@@ -944,10 +1967,30 @@
                 // Preencher formulário
                 clienteSelect.value = acompanhamento.clienteId;
                 dataAtualizacaoInput.value = acompanhamento.dataAtualizacao;
-                etapaInput.value = acompanhamento.etapa || '';
-                modeloInput.value = acompanhamento.modelo || '';
-                statusSelect.value = acompanhamento.status || 'Aguardando';
-                numeroPassoInput.value = acompanhamento.numeroPasso || '';
+                statusGeralSelect.value = acompanhamento.statusGeral || 'Aguardando';
+                observacoesInput.value = acompanhamento.observacoes || '';
+                
+                // Preencher modelo e etapas
+                if (acompanhamento.modeloId) {
+                    modeloProdutoSelect.value = acompanhamento.modeloId;
+                    // Carregar etapas do modelo
+                    setTimeout(() => {
+                        carregarEtapasDoModelo();
+                        
+                        // Preencher status das etapas se existirem
+                        if (acompanhamento.etapasStatus) {
+                            setTimeout(() => {
+                                Object.keys(acompanhamento.etapasStatus).forEach(index => {
+                                    const select = listaEtapas.querySelector(`[data-etapa-index="${index}"]`);
+                                    if (select) {
+                                        select.value = acompanhamento.etapasStatus[index];
+                                        atualizarStatusEtapa(parseInt(index), acompanhamento.etapasStatus[index]);
+                                    }
+                                });
+                            }, 100);
+                        }
+                    }, 100);
+                }
                 
                 editId = id;
                 saveBtn.textContent = "Atualizar";
@@ -1001,12 +2044,18 @@
             editId = null;
             saveBtn.textContent = "Salvar";
             deleteBtn.style.display = "none";
+            
+            // Resetar campos relacionados a modelos
+            modeloProdutoSelect.value = '';
+            etapasContainer.style.display = 'none';
+            etapasAtuais = [];
         }
 
         // Inicializar
         async function init() {
             atualizarData();
             await carregarClientes();
+            await carregarModelosProdutos();
             await carregarAcompanhamentos();
             
             setInterval(atualizarData, 60000);
