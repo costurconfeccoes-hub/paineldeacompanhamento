@@ -232,7 +232,8 @@
         }
 
         .form-group input,
-        .form-group select {
+        .form-group select,
+        .form-group textarea {
             width: 100%;
             padding: 6px 8px;
             border: 1px solid #ddd;
@@ -242,9 +243,83 @@
         }
 
         .form-group input:focus,
-        .form-group select:focus {
+        .form-group select:focus,
+        .form-group textarea:focus {
             border-color: var(--secondary);
             outline: none;
+        }
+
+        /* NOVO ESTILO - Campo de foto */
+        .foto-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 5px;
+        }
+
+        .foto-preview {
+            width: 60px;
+            height: 60px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            background-color: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .foto-preview:hover {
+            border-color: var(--secondary);
+        }
+
+        .foto-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .foto-preview i {
+            font-size: 1.5rem;
+            color: #aaa;
+        }
+
+        .foto-upload {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .foto-upload input[type="file"] {
+            width: 100%;
+            padding: 4px;
+            font-size: 0.7rem;
+        }
+
+        .foto-url-input {
+            font-size: 0.7rem;
+            padding: 4px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            width: 100%;
+        }
+
+        .foto-remove-btn {
+            background-color: var(--danger);
+            color: white;
+            border: none;
+            padding: 3px 8px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 0.65rem;
+            align-self: flex-start;
+        }
+
+        .foto-remove-btn:hover {
+            background-color: #c0392b;
         }
 
         .form-actions {
@@ -410,6 +485,41 @@
         .detail-value-compact {
             font-weight: 500;
             font-size: 0.65rem;
+        }
+
+        /* NOVO ESTILO - Miniatura na visualização rápida */
+        .quick-view-foto {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .quick-view-foto-mini {
+            width: 30px;
+            height: 30px;
+            border-radius: 3px;
+            object-fit: cover;
+            border: 1px solid #ddd;
+            cursor: pointer;
+        }
+
+        .quick-view-foto-mini:hover {
+            border-color: var(--secondary);
+            transform: scale(1.1);
+            transition: transform 0.2s ease;
+        }
+
+        .quick-view-foto-placeholder {
+            width: 30px;
+            height: 30px;
+            background-color: #f0f0f0;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #aaa;
+            font-size: 0.8rem;
+            border: 1px solid #ddd;
         }
 
         .quick-view-actions {
@@ -584,6 +694,50 @@
             font-size: 0.7rem;
             font-weight: bold;
             color: white;
+        }
+        
+        /* NOVO ESTILO - Visualização da foto */
+        .foto-visualizacao {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        
+        .foto-visualizacao:hover {
+            opacity: 0.9;
+        }
+        
+        .foto-visualizacao img {
+            max-width: 100%;
+            max-height: 250px;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            object-fit: contain;
+        }
+        
+        .foto-visualizacao-placeholder {
+            width: 100%;
+            height: 150px;
+            background-color: #e9ecef;
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: #aaa;
+        }
+        
+        .foto-visualizacao-placeholder i {
+            font-size: 2.5rem;
+        }
+        
+        .foto-visualizacao-placeholder span {
+            font-size: 0.8rem;
         }
         
         /* Lista de etapas na visualização */
@@ -897,6 +1051,58 @@
             min-width: 120px;
         }
 
+        /* Modal para ampliar foto */
+        .foto-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 3000;
+            cursor: pointer;
+        }
+        
+        .foto-modal-content {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .foto-modal-content img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+        
+        .foto-modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .foto-modal-close:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.1);
+        }
+
         /* Responsive - mantendo o padrão original */
         @media (max-width: 768px) {
             .header-content {
@@ -1043,6 +1249,23 @@
                                 <button type="button" class="btn-carregar-modelo" onclick="abrirModalModelos()">
                                     <i class="fas fa-cog"></i>
                                 </button>
+                            </div>
+                        </div>
+                        
+                        <!-- NOVO CAMPO - Foto do produto -->
+                        <div class="form-group">
+                            <label>Foto do Produto</label>
+                            <div class="foto-container">
+                                <div class="foto-preview" id="fotoPreview" onclick="abrirFotoPreviewAmpliada()">
+                                    <i class="fas fa-camera"></i>
+                                </div>
+                                <div class="foto-upload">
+                                    <input type="file" id="fotoInput" accept="image/*" onchange="previewFoto(this)">
+                                    <input type="text" id="fotoUrl" class="foto-url-input" placeholder="Ou cole uma URL da imagem" onchange="usarUrlFoto()">
+                                    <button type="button" class="foto-remove-btn" onclick="removerFoto()" style="display: none;" id="removerFotoBtn">
+                                        <i class="fas fa-trash"></i> Remover foto
+                                    </button>
+                                </div>
                             </div>
                         </div>
                         
@@ -1194,6 +1417,14 @@
         </div>
     </div>
 
+    <!-- Modal para ampliar foto -->
+    <div id="fotoModal" class="foto-modal" onclick="fecharFotoModal()">
+        <div class="foto-modal-content">
+            <span class="foto-modal-close">&times;</span>
+            <img id="fotoModalImg" src="" alt="Foto ampliada">
+        </div>
+    </div>
+
     <!-- Firebase SDK -->
     <script type="module">
         // Import the functions you need from the Firebase SDKs
@@ -1240,6 +1471,14 @@
         const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
         const senhaExclusaoInput = document.getElementById('senhaExclusao');
         
+        // NOVAS REFERÊNCIAS - Foto
+        const fotoInput = document.getElementById('fotoInput');
+        const fotoUrl = document.getElementById('fotoUrl');
+        const fotoPreview = document.getElementById('fotoPreview');
+        const removerFotoBtn = document.getElementById('removerFotoBtn');
+        const fotoModal = document.getElementById('fotoModal');
+        const fotoModalImg = document.getElementById('fotoModalImg');
+        
         // NOVAS REFERÊNCIAS
         const modelosModal = document.getElementById('modelosModal');
         const visualizacaoModal = document.getElementById('visualizacaoModal');
@@ -1265,6 +1504,144 @@
         let filtroAtual = '';
         let modelosProdutos = [];
         let etapasAtuais = [];
+
+        // Função para mostrar erro
+        function mostrarErro(mensagem) {
+            alert("Erro: " + mensagem);
+            console.error(mensagem);
+        }
+
+        // Função para validar URL de imagem
+        function validarUrlImagem(url) {
+            return url.match(/\.(jpeg|jpg|gif|png|webp|bmp|svg)$/i) || url.startsWith('data:image');
+        }
+
+        // NOVA FUNÇÃO - Preview da foto
+        window.previewFoto = function(input) {
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
+                
+                // Verificar tamanho do arquivo (máximo 5MB)
+                if (file.size > 5 * 1024 * 1024) {
+                    mostrarErro("A imagem deve ter no máximo 5MB");
+                    input.value = '';
+                    return;
+                }
+                
+                // Verificar tipo do arquivo
+                if (!file.type.match('image.*')) {
+                    mostrarErro("Por favor, selecione uma imagem válida");
+                    input.value = '';
+                    return;
+                }
+                
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    try {
+                        fotoPreview.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
+                        removerFotoBtn.style.display = 'inline-block';
+                        // Limpar campo de URL
+                        fotoUrl.value = '';
+                    } catch (error) {
+                        console.error("Erro ao carregar imagem:", error);
+                        mostrarErro("Erro ao carregar a imagem. Tente novamente.");
+                    }
+                };
+                
+                reader.onerror = function() {
+                    mostrarErro("Erro ao ler o arquivo. Tente novamente.");
+                };
+                
+                reader.readAsDataURL(file);
+            }
+        };
+
+        // NOVA FUNÇÃO - Usar URL da foto (CORRIGIDA)
+        window.usarUrlFoto = function() {
+            const url = fotoUrl.value.trim();
+            if (!url) return;
+            
+            // Criar uma imagem para testar se a URL é válida
+            const img = new Image();
+            img.onload = function() {
+                try {
+                    fotoPreview.innerHTML = `<img src="${url}" alt="Preview">`;
+                    removerFotoBtn.style.display = 'inline-block';
+                    // Limpar input file
+                    fotoInput.value = '';
+                } catch (error) {
+                    console.error("Erro ao carregar URL:", error);
+                    mostrarErro("Erro ao carregar a imagem da URL");
+                }
+            };
+            
+            img.onerror = function() {
+                mostrarErro("URL da imagem inválida ou inacessível");
+            };
+            
+            img.src = url;
+        };
+
+        // NOVA FUNÇÃO - Remover foto
+        window.removerFoto = function() {
+            fotoPreview.innerHTML = '<i class="fas fa-camera"></i>';
+            fotoInput.value = '';
+            fotoUrl.value = '';
+            removerFotoBtn.style.display = 'none';
+        };
+
+        // NOVA FUNÇÃO - Obter foto atual (base64 ou URL)
+        function obterFotoAtual() {
+            const img = fotoPreview.querySelector('img');
+            if (img) {
+                return img.src;
+            }
+            return null;
+        }
+
+        // NOVA FUNÇÃO - Carregar foto no preview
+        function carregarFotoPreview(fotoSrc) {
+            if (fotoSrc) {
+                try {
+                    fotoPreview.innerHTML = `<img src="${fotoSrc}" alt="Preview">`;
+                    removerFotoBtn.style.display = 'inline-block';
+                    
+                    // Se for URL, colocar no campo de URL
+                    if (fotoSrc.startsWith('http')) {
+                        fotoUrl.value = fotoSrc;
+                    }
+                } catch (error) {
+                    console.error("Erro ao carregar preview:", error);
+                    fotoPreview.innerHTML = '<i class="fas fa-camera"></i>';
+                }
+            } else {
+                fotoPreview.innerHTML = '<i class="fas fa-camera"></i>';
+                removerFotoBtn.style.display = 'none';
+            }
+        }
+
+        // NOVA FUNÇÃO - Abrir foto ampliada do preview
+        window.abrirFotoPreviewAmpliada = function() {
+            const img = fotoPreview.querySelector('img');
+            if (img) {
+                abrirFotoAmpliada(img.src);
+            }
+        };
+
+        // NOVA FUNÇÃO - Abrir foto ampliada
+        window.abrirFotoAmpliada = function(src) {
+            if (!src) return;
+            
+            fotoModalImg.src = src;
+            fotoModal.style.display = 'block';
+        };
+
+        // NOVA FUNÇÃO - Fechar foto ampliada
+        window.fecharFotoModal = function() {
+            fotoModal.style.display = 'none';
+            fotoModalImg.src = '';
+        };
 
         // Atualizar data automaticamente
         function atualizarData() {
@@ -1493,7 +1870,7 @@
             visualizacaoModal.style.display = "none";
         };
 
-        // Exibir conteúdo na modal de visualização
+        // Exibir conteúdo na modal de visualização (MODIFICADO - com foto)
         function exibirConteudoVisualizacao(acompanhamento) {
             // Calcular progresso das etapas
             let etapasRealizadas = 0;
@@ -1529,7 +1906,23 @@
                 return "status-parado-bg";
             }
             
+            // NOVO - HTML da foto
+            const fotoHtml = acompanhamento.foto ? `
+                <div class="foto-visualizacao" onclick="abrirFotoAmpliada('${acompanhamento.foto}')">
+                    <img src="${acompanhamento.foto}" alt="Foto do produto">
+                </div>
+            ` : `
+                <div class="foto-visualizacao">
+                    <div class="foto-visualizacao-placeholder">
+                        <i class="fas fa-camera"></i>
+                        <span>Sem foto cadastrada</span>
+                    </div>
+                </div>
+            `;
+            
             conteudoVisualizacao.innerHTML = `
+                ${fotoHtml}
+                
                 <div class="info-section">
                     <h4>Informações do Cliente</h4>
                     <div class="info-row">
@@ -1799,7 +2192,7 @@
             exibirAcompanhamentos(todosAcompanhamentos);
         };
 
-        // Exibir acompanhamentos na tela
+        // Exibir acompanhamentos na tela (MODIFICADO - com foto)
         function exibirAcompanhamentos(acompanhamentos) {
             quickViewContainer.innerHTML = '';
 
@@ -1834,12 +2227,20 @@
                 
                 const progresso = totalEtapas > 0 ? Math.round((etapasRealizadas / totalEtapas) * 100) : 0;
                 
+                // NOVO - HTML da miniatura da foto
+                const fotoMiniHtml = acompanhamento.foto ? 
+                    `<img src="${acompanhamento.foto}" class="quick-view-foto-mini" alt="Foto" onclick="abrirFotoAmpliada('${acompanhamento.foto}')">` : 
+                    `<div class="quick-view-foto-placeholder"><i class="fas fa-camera"></i></div>`;
+                
                 quickItem.innerHTML = `
                     <div class="quick-view-header">
                         <div class="quick-view-cliente">${acompanhamento.clienteMarca || acompanhamento.clienteId || 'Marca não informada'}</div>
                         <div class="quick-view-status status-${getStatusClass(acompanhamento.statusGeral)}">${acompanhamento.statusGeral || 'Sem status'}</div>
                     </div>
                     <div class="quick-view-details-compact">
+                        <div class="detail-compact quick-view-foto">
+                            ${fotoMiniHtml}
+                        </div>
                         <div class="detail-compact">
                             <span class="detail-label-compact">Modelo</span>
                             <span class="detail-value-compact">${acompanhamento.modeloNome || '-'}</span>
@@ -1888,66 +2289,71 @@
             return "parado";
         }
 
-        // Salvar ou atualizar acompanhamento
+        // Salvar ou atualizar acompanhamento (MODIFICADO - com foto)
         acompanhamentoForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             
-            const clienteSelecionado = clientesAtivos.find(c => c.id === clienteSelect.value);
-            if (!clienteSelecionado) {
-                alert("Selecione uma marca válida");
-                return;
-            }
-            
-            const modeloSelecionado = modelosProdutos.find(m => m.id === modeloProdutoSelect.value);
-            if (!modeloSelecionado) {
-                alert("Selecione um modelo válido");
-                return;
-            }
-            
-            // Coletar status das etapas
-            const etapasStatus = {};
-            const etapaStatusSelects = listaEtapas.querySelectorAll('.etapa-status-select');
-            etapaStatusSelects.forEach((select, index) => {
-                etapasStatus[index] = select.value;
-            });
-            
-            const acompanhamento = {
-                clienteId: clienteSelect.value,
-                clienteMarca: clienteSelecionado.marca,
-                modeloId: modeloProdutoSelect.value,
-                modeloNome: modeloSelecionado.nomeModelo,
-                dataAtualizacao: dataAtualizacaoInput.value,
-                etapas: etapasAtuais,
-                etapasStatus: etapasStatus,
-                statusGeral: statusGeralSelect.value,
-                observacoes: observacoesInput.value
-            };
-
-            if (!editId) {
-                acompanhamento.dataCriacao = new Date().toLocaleDateString('pt-BR');
-            }
-
             try {
+                const clienteSelecionado = clientesAtivos.find(c => c.id === clienteSelect.value);
+                if (!clienteSelecionado) {
+                    alert("Selecione uma marca válida");
+                    return;
+                }
+                
+                const modeloSelecionado = modelosProdutos.find(m => m.id === modeloProdutoSelect.value);
+                if (!modeloSelecionado) {
+                    alert("Selecione um modelo válido");
+                    return;
+                }
+                
+                // Coletar status das etapas
+                const etapasStatus = {};
+                const etapaStatusSelects = listaEtapas.querySelectorAll('.etapa-status-select');
+                etapaStatusSelects.forEach((select, index) => {
+                    etapasStatus[index] = select.value;
+                });
+                
+                // NOVO - Obter foto
+                const foto = obterFotoAtual();
+                
+                const acompanhamento = {
+                    clienteId: clienteSelect.value,
+                    clienteMarca: clienteSelecionado.marca,
+                    modeloId: modeloProdutoSelect.value,
+                    modeloNome: modeloSelecionado.nomeModelo,
+                    dataAtualizacao: dataAtualizacaoInput.value,
+                    etapas: etapasAtuais,
+                    etapasStatus: etapasStatus,
+                    statusGeral: statusGeralSelect.value,
+                    observacoes: observacoesInput.value,
+                    foto: foto // NOVO - Salvar foto
+                };
+
+                if (!editId) {
+                    acompanhamento.dataCriacao = new Date().toLocaleDateString('pt-BR');
+                }
+
                 if (editId) {
                     const docRef = doc(dbAcompanhamentos, "acompanhamentos", editId);
                     await updateDoc(docRef, acompanhamento);
                     console.log("Acompanhamento atualizado:", acompanhamento);
+                    alert("Acompanhamento atualizado com sucesso!");
                 } else {
                     await addDoc(collection(dbAcompanhamentos, "acompanhamentos"), acompanhamento);
                     console.log("Acompanhamento salvo:", acompanhamento);
+                    alert("Acompanhamento salvo com sucesso!");
                 }
                 
                 await carregarAcompanhamentos();
                 limparFormulario();
                 
-                alert(editId ? "Acompanhamento atualizado com sucesso!" : "Acompanhamento salvo com sucesso!");
             } catch (error) {
                 console.error("Erro ao salvar acompanhamento:", error);
-                alert("Erro ao salvar acompanhamento. Tente novamente.");
+                alert("Erro ao salvar acompanhamento: " + error.message);
             }
         });
 
-        // Editar acompanhamento
+        // Editar acompanhamento (MODIFICADO - com foto)
         window.editarAcompanhamento = async function(id) {
             try {
                 const docSnap = await getDocs(collection(dbAcompanhamentos, "acompanhamentos"));
@@ -1969,6 +2375,13 @@
                 dataAtualizacaoInput.value = acompanhamento.dataAtualizacao;
                 statusGeralSelect.value = acompanhamento.statusGeral || 'Aguardando';
                 observacoesInput.value = acompanhamento.observacoes || '';
+                
+                // NOVO - Carregar foto
+                if (acompanhamento.foto) {
+                    carregarFotoPreview(acompanhamento.foto);
+                } else {
+                    removerFoto();
+                }
                 
                 // Preencher modelo e etapas
                 if (acompanhamento.modeloId) {
@@ -2037,7 +2450,7 @@
             }
         });
 
-        // Limpar formulário
+        // Limpar formulário (MODIFICADO - resetar foto)
         function limparFormulario() {
             acompanhamentoForm.reset();
             atualizarData();
@@ -2049,7 +2462,20 @@
             modeloProdutoSelect.value = '';
             etapasContainer.style.display = 'none';
             etapasAtuais = [];
+            
+            // NOVO - Resetar foto
+            removerFoto();
         }
+
+        // Fechar modal ao clicar fora
+        window.onclick = function(event) {
+            if (event.target == visualizacaoModal) {
+                fecharModalVisualizacao();
+            }
+            if (event.target == modelosModal) {
+                fecharModalModelos();
+            }
+        };
 
         // Inicializar
         async function init() {
